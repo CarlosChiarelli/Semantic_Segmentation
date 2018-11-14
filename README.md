@@ -7,8 +7,8 @@ Download the folders from [Google Drive](https://drive.google.com/open?id=1qI1rc
 Copy and paste the Segmentador and xception_65 folders at the path: 
 research/deeplab/datasets/PQR/exp/train_on_trainval_set/init_models/
 
-## Adapt to own dataset
-The following files need to be adapted to train on your own dataset.
+## Adapt to train on own dataset
+The following files must be adapted to train on your own dataset.
 
 ### research/deeplab/train-pqr.sh
 This bash file calls train.py, with the paths to the directories needed.
@@ -29,3 +29,10 @@ ignore_labels (line 37) must be the grey scale value of the label not used (255 
 ### research/deeplab/datasets/label_pqr.py
 Change the palette definition (line 8). The dictionary must be defined as (R, G, B) : LABEL, where R, G, B are the values of the label color of each class, and LABEL is a number from 0 to number of classes (the ignore_labels value must not be in the list).
 
+### Original and Segmented labeled Images (your dataset)
+The original images must be in .jpg format, placed at research/deeplab/datasets/PQR/originals/JPEGImages
+The labeled images must be in .png format, placed at research/deeplab/datasets/PQR/originals/SegmentationClass
+
+## Training
+
+## Evaluation and Visualization
