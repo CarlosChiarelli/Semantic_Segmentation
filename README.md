@@ -1,11 +1,31 @@
 # Image Segmentation
-Image Segmentation with [DeeplabV3+](https://github.com/tensorflow/models/tree/master/research/deeplab), adapted to use on own dataset.
+I created this repository to simplify the adaptation of Image Segmentation with [DeeplabV3+](https://github.com/tensorflow/models/tree/master/research/deeplab), to use on own dataset.
 
 ## Pre-trained models
 Download the folders from [Google Drive](https://drive.google.com/open?id=1qI1rcNNobAJvHIVXXWHr6NYUthwEasz3)
 
 Copy and paste the Segmentador and xception_65 folders at the path: 
 research/deeplab/datasets/PQR/exp/train_on_trainval_set/init_models/
+
+## Dependencies
+The algorithm makes use of the following imports, make sure that they are already installed:
+-os.path
+-contextlib
+-functools
+-PIL.Image
+-os
+-shutil
+-glob
+-image_slicer
+-time
+-numpy
+-math
+-six
+-sys
+-collections
+-copy
+-tensorflow
+-from __future__ import absolute_import, division, print_function
 
 ## Adapt to train on own dataset
 The following files must be adapted to train on your own dataset.
@@ -41,5 +61,21 @@ The original images must be in .jpg format, placed at research/deeplab/datasets/
 The labeled images must be in .png format, placed at research/deeplab/datasets/PQR/originals/SegmentationClass
 
 ## Training
+#### Convert Images to Tensorflow format
+Go to research/deeplab/datasets/ and run the "exec_pqr.sh".
+
+It will split the original and labeled images and put them on respective folders at research/deeplab/datasets/PQR/dataset/. Also creating the respective sets of train, trainval and val at research/deeplab/datasets/PQR/dataset/ImageSets. By default it will use 10% of images for val and 90% for train.
+
+After that, it will transform the segmented images, switching the colors by the respective label defined in the label_pqr.py palette, at research/deeplab/datasets/PQR/dataset/SegmentationClassRaw.
+
+By the end, will convert the original jpg and the raw labeled images in tensor format, creating files for each set (train, trainval and val) at research/deeplab/datasets/PQR/tfrecord.
+
+#### Train
+
+
+#### Common error
+If you downloaded the repository, run everything in your own dataset, and then tried to copy and paste to other computer, 
+you may have some trouble with paths. The most common problem are the pycache files created, that use the pre-defined paths.
+Try to delete every __pycache__ directory existent and run the code again.
 
 ## Evaluation and Visualization
