@@ -37,9 +37,9 @@ This bash file calls train.py, with the paths to the directories needed.
 
 --train_bath_size informs the amount of steps evaluated before update the weights of the network.
 
---initialize_last_layer must be true when the model will be incremented, must be false when the model will be trained without previous chekpoints.
+--initialize_last_layer must be true when the model will be incremented (by the initial chekpoint or the already trained at  research/deeplab/datasets/PQR/exp/train_on_trainval_set/train/), must be false when the model will be trained by the first time or if you want to reset the weights.
 
---tf_initial_chekpoint define the path to the initial chekpoint used. If not defined your own, use xception_65 path.
+--tf_initial_chekpoint define the path to the initial chekpoint used. If not defined your own, use xception_65 path. To use your own chekpoint, place your chekpoint files at Segmentador path and set --tf_initial_chekpoint as the Segmentador path.
 
 Others parameters can be keeped as they are.
 
@@ -71,7 +71,10 @@ After that, it will transform the segmented images, switching the colors by the 
 By the end, will convert the original jpg and the raw labeled images in tensor format, creating files for each set (train, trainval and val) at research/deeplab/datasets/PQR/tfrecord.
 
 #### Train
+Run the "train-pqr.sh" at research/deeplab/.
 
+It will create the chekpoints at research/deeplab/datasets/PQR/exp/train_on_trainval_set/train/ that will be used as initial chekpoints in the next time you train your model. You can delete the files from that folder to start the training from 
+research/deeplab/datasets/PQR/exp/train_on_trainval_set/init_models/ Segmentador or xception_65 chekpoints.
 
 #### Common error
 If you downloaded the repository, run everything in your own dataset, and then tried to copy and paste to other computer, 
