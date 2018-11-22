@@ -5,27 +5,27 @@ I created this repository to simplify the adaptation of Image Segmentation with 
 Download the folders from [Google Drive](https://drive.google.com/open?id=1qI1rcNNobAJvHIVXXWHr6NYUthwEasz3)
 
 Copy and paste the Segmentador and xception_65 folders at the path: 
-research/deeplab/datasets/PQR/exp/train_on_trainval_set/init_models/
+research/deeplab/datasets/PQR/exp/train\_on\_trainval\_set/init_models/
 
 ## Dependencies
 The algorithm makes use of the following imports, make sure that they are already installed:
--os.path
--contextlib
--functools
--PIL.Image
--os
--shutil
--glob
--image_slicer
--time
--numpy
--math
--six
--sys
--collections
--copy
--tensorflow
--from __future__ import absolute_import, division, print_function
+-os.path  
+-contextlib  
+-functools  
+-PIL.Image  
+-os  
+-shutil  
+-glob  
+-image_slicer  
+-time  
+-numpy  
+-math  
+-six  
+-sys  
+-collections  
+-copy  
+-tensorflow  
+-from \_\_future\_\_ import absolute_import, division, print_function
 
 ## Adapt to train on own dataset
 The following files must be adapted to train on your own dataset.
@@ -33,13 +33,15 @@ The following files must be adapted to train on your own dataset.
 #### research/deeplab/train-pqr.sh
 This bash file calls train.py, with the paths to the directories needed.
 
---training_number_of_steps is used to inform the amount of steps to run.
+--training\_number\_of\_steps is used to inform the amount of steps to run.
 
---train_bath_size informs the amount of steps evaluated before update the weights of the network.
+--train\_bath\_size informs the amount of steps evaluated before update the weights of the network.
 
---initialize_last_layer must be true when the model will be incremented (by the initial chekpoint or the already trained at  research/deeplab/datasets/PQR/exp/train_on_trainval_set/train/), must be false when the model will be trained by the first time or if you want to reset the weights.
+--train_split informs wich split will be used during the training, choose between train, trainval or val.
 
---tf_initial_chekpoint define the path to the initial chekpoint used. If not defined your own, use xception_65 path. To use your own chekpoint, place your chekpoint files at Segmentador path and set --tf_initial_chekpoint as the Segmentador path.
+--initialize\_last\_layer must be true when the model will be incremented (by the initial chekpoint or the already trained at  research/deeplab/datasets/PQR/exp/train_on_trainval_set/train/), must be false when the model will be trained by the first time or if you want to reset the weights.
+
+--tf\_initial\_chekpoint define the path to the initial chekpoint used. If not defined your own, use xception_65 path. To use your own chekpoint, place your chekpoint files at Segmentador path and set --tf\_initial\_chekpoint as the Segmentador path.
 
 Others parameters can be keeped as they are.
 
@@ -79,6 +81,21 @@ research/deeplab/datasets/PQR/exp/train_on_trainval_set/init_models/ Segmentador
 #### Common error
 If you downloaded the repository, run everything in your own dataset, and then tried to copy and paste to other computer, 
 you may have some trouble with paths. The most common problem are the pycache files created, that use the pre-defined paths.
-Try to delete every __pycache__ directory existent and run the code again.
+Try to delete every \_\_pycache\_\_ directory existent and run the code again.
 
 ## Evaluation and Visualization
+To evaluate or test new images on your trained model, the chekpoints need to be on research/deeplab/datasets/PQR/exp/train_on_trainval_set/train/ directory.
+
+#### Evaluation
+Edit the file eval-pqr.sh at research/deeplab/. Choose the --eval_split between val, train or trainval.  
+The --eval_crop_size must be the size of the greater image in the dataset. The first measure refers to hight and the second refers to width.  
+Keep the rest as it is.
+
+It will create a file at research/deeplab/datasets/PQR/exp/train_on_trainval_set/eval/ and will show the mIoU (mean intersection over union) of the model.
+
+#### Visualization
+Edit the file vis-pqr.sh at research/deeplab/. Choose the --vis_split between val, train or trainval.
+The --eval_crop_size must be the size of the greater image in the dataset. The first measure refers to hight and the second refers to width.  
+Keep the rest as it is.
+
+It will put the original and segmented results based on the split defined (val, train or trainval) at  research/deeplab/datasets/PQR/exp/train_on_trainval_set/vis/segmentation_results/ .
